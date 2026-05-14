@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40">
+  <rect width="120" height="40" rx="6" fill="#DC2626"/>
+  <text x="10" y="26" font-family="Georgia, serif" font-size="18" font-weight="bold" fill="white">DN</text>
+  <circle cx="100" cy="20" r="8" fill="white" opacity="0.2"/>
+  <circle cx="100" cy="20" r="4" fill="white" opacity="0.8"/>
+</svg>

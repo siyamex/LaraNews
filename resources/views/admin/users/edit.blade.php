@@ -1,0 +1,51 @@
+@extends('layouts.admin')
+@section('title', 'Edit User')
+@section('content')
+<div class="max-w-xl">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Edit User: {{ $user->name }}</h1>
+    <form action="{{ route('admin.users.update', $user) }}" method="POST" class="space-y-4">
+        @csrf @method('PUT')
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                    <input type="text" name="name" value="{{ old('name', $user->name) }}"
+                           class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
+                    <input type="text" name="username" value="{{ old('username', $user->username) }}"
+                           class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user->email) }}"
+                       class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm" required>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">New Password (leave blank to keep)</label>
+                <input type="password" name="password"
+                       class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Role</label>
+                <select name="role" class="w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 shadow-sm">
+                    @foreach(['subscriber','author','journalist','moderator','editor','admin','super_admin'] as $role)
+                        <option value="{{ $role }}" {{ $user->roles->first()?->name === $role ? 'selected' : '' }}>{{ ucfirst($role) }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="is_active" value="1" {{ $user->is_active ? 'checked' : '' }}
+                       class="rounded border-gray-300 text-red-600">
+                <span class="text-sm text-gray-700 dark:text-gray-300">Active</span>
+            </label>
+        </div>
+        <div class="flex gap-3">
+            <button type="submit" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium">Update User</button>
+            <a href="{{ route('admin.users.index') }}" class="px-6 py-2.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg text-sm font-medium">Cancel</a>
+        </div>
+    </form>
+</div>
+@endsection
